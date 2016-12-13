@@ -32,5 +32,7 @@ Route::resource('/test', 'TestController');
 
 Route::get('/task', 'TaskController@index');
 Route::get('/task/create', 'TaskController@create');
+Route::get('/task/edit/{task}', 'TaskController@edit');
+Route::post('/task/update/{task}', 'TaskController@update');
 Route::post('/task', 'TaskController@store');
 Route::delete('/task/{task}', 'TaskController@destroy');

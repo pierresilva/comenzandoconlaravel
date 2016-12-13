@@ -36,6 +36,10 @@
 											class="btn btn-danger btn-sm">
 												<i class="fa fa-trash"></i>
 											</button>
+											<a 
+											href="{{url('task/edit/' . $task->id)}}"
+											class="btn btn-warning btn-sm" 
+											><i class="fa fa-edit"></i></a>
 										</form>
 									</td>
 								</tr>
