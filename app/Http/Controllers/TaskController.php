@@ -10,7 +10,7 @@ class TaskController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'index']);
     }
     /**
      * Listado de tareas
@@ -18,8 +18,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-    	$tasks = Task::orderBy('created_at', 'asc')->get();
-
+    	$tasks = Task::orderBy('created_at', 'asc')->with('user')->get();        
         return view('tasks.index', ['tasks' => $tasks]);
     }
 
@@ -55,13 +54,21 @@ class TaskController extends Controller
 
         return redirect('/task');
     }
-    /**
-     * Elimina una tarea
-     * @param  integer $id
-     * @return [type]
-     */
+    
+
     public function destroy($id)
     {
-        # code...
+        //dd($request->all());
+        
+        $task = new Task;
+
+        $deleted = $task::destroy($id);
+
+        if ($deleted) {
+            return redirect('/task');
+        }
+
+        return "Ocurrio un error";
+
     }
 }

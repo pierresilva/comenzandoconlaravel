@@ -19,9 +19,25 @@
 							<tbody>
 								@foreach ($tasks as $task)
 								<tr>
-									<td>{{ $task->name }}</td>
+									<td>{{ $task->name }} <br>
+									<span class="small">
+									Creada por: 
+									{{$task->user->name}}
+									</span></td>
 									<td>{{ $task->description }}</td>
-									<td> <!-- botones --></td>
+									<td>
+										<form 
+										action="{{url('/task/' . $task->id)}}"
+										method="POST"
+										>
+											{{ csrf_field() }}
+											{{ method_field('DELETE') }}
+											<button
+											class="btn btn-danger btn-sm">
+												<i class="fa fa-trash"></i>
+											</button>
+										</form>
+									</td>
 								</tr>
 								@endforeach
 							</tbody>
@@ -29,7 +45,11 @@
 					@else
 						<b>No hay tareas</b>
 					@endif
-					<a href="{{url('/task/create')}}" class="btn btn-success btn-sm">Crear una tarea</a>					
+					@if (Auth::user())
+					<br>
+					
+					<a href="{{url('/task/create')}}" class="btn btn-success btn-sm">Crear una tarea</a>	
+					@endif			
 					</div>
 				</div>
 			</div>
